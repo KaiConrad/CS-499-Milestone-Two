@@ -2,6 +2,8 @@
 // Kailey Conrad  - Python game updated: 8/13/2023     JS Game Updated: 5/25/2025
 // Purpose: Create text-based game in JavaScript from old Python game
 
+
+// const of all the rooms in the game, and where they are in relation to the other rooms
 const rooms = {
     "Main Room": { south: "Painting Room", Item: "Shard" },
     "Painting Room": { west: "Library", north: "Main Room", Item: "Photo" },
@@ -13,10 +15,17 @@ const rooms = {
     "Throne Room": { east: "Library", Item: "Hades" }
 };
 
+//setting the default state as the main room
 let state = "Main Room";
+
+//setting default inventory as blank as no items have been picked up yet
 let inventory = [];
+
+//const of all items that are able to be picked up
 const items = ['Shard', 'Photo', 'Notebook', 'Childs Art', 'Broken Clock', 'Stuffed Toy', 'Record'];
 
+
+//instrucctions so that any player can play the game
 function instructions() {
     alert(
         `Welcome to "Cycles". A game of life - or death.\n` +
@@ -29,6 +38,7 @@ function instructions() {
     );
 }
 
+//get state function  to get the room from direction
 function getNewState(currentState, direction) {
     const room = rooms[currentState];
     if (room && room[direction]) {
@@ -37,10 +47,12 @@ function getNewState(currentState, direction) {
     return currentState;
 }
 
+// get item function, gets the room's item
 function getItem(state) {
     return rooms[state].Item;
 }
 
+// room descriptions
 function describeRoom(state) {
     if (state === "Main Room") {
         console.log("You arrive in a desolate room. Spectral figures drift around...");
@@ -85,6 +97,7 @@ function describeRoom(state) {
     // NEED TO: Add in the other rooms, flesh out the full descriptions.
 }
 
+//item descriptions - unfinished with placeholders. 
 function describeItem(item) {
     switch (item) {
         case "Shard":
@@ -110,10 +123,12 @@ function describeItem(item) {
             break;
     }
 }
-//NEED TO: copy paste descriptions from the python code to fully flesh out the items. 
+//NEED TO: copy paste descriptions from the python code to fully flesh out the items.
 
+//prints instructions
 instructions();
 
+// main game loop 
 while (true) {
     console.log(`Welcome, to the ${state}`);
     describeRoom(state);
@@ -141,9 +156,10 @@ while (true) {
         }
     }
     //NEED TO fully copy over interaction from python.
-
+//prompt to get direction or item grab from player
     let input = prompt("Which direction would you like to go? Or would you like to get the item in the room?").toLowerCase();
 
+    //basic error handling
     if (input.startsWith("go ")) {
         let direction = input.slice(3).trim();
         const newState = getNewState(state, direction);
